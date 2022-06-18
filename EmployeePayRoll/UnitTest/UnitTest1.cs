@@ -36,5 +36,19 @@ namespace UnitTest
             var actual = employeePayRoll.InsertEmployeeData(employee);
             Assert.AreEqual(expected, actual);
         }
+        /// <summary>
+        /// UC2: Updating Employee Data
+        /// </summary>
+        [Test]
+        public void UpdateDetails()
+        {
+            employee.ID = 3;
+            employee.Name = "Smith";
+            employee.BasicPay = 58000;
+            var result = employeePayRoll.UpdateEmployeeData(employee);
+            var expected = result.BasicPay;
+            var actual = employee.BasicPay;
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

@@ -15,6 +15,7 @@ namespace EmployeePay
                 Console.WriteLine("1: Establish Connection");
                 Console.WriteLine("2: Close Connection");
                 Console.WriteLine("3: Add Employee Data");
+                Console.WriteLine("4: Update Employee Data");
                 Console.WriteLine("0: Exit");
                 option = int.Parse(Console.ReadLine());
                 switch (option)
@@ -60,6 +61,18 @@ namespace EmployeePay
                         int netpay = int.Parse(Console.ReadLine());
                         emp.NetPay = netpay;
                         employeepayroll.InsertEmployeeData(emp);
+                        break;
+                    case 4:
+                        Console.WriteLine("Enter Id");
+                        int id = int.Parse(Console.ReadLine());
+                        emp.ID = id;
+                        Console.WriteLine("Enter Name");
+                        string Name = Console.ReadLine();
+                        emp.Name = Name;
+                        Console.WriteLine("Enter a Basic Pay");
+                        double basic = Convert.ToInt64(Console.ReadLine());
+                        emp.BasicPay = basic;
+                        employeepayroll.UpdateEmployeeData(emp);
                         break;
                     case 0:
                         Console.WriteLine("Exit");

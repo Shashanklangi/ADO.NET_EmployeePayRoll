@@ -84,5 +84,55 @@ namespace EmployeePay
                 throw new EmployeeException(EmployeeException.ExceptionType.INSERTION_ERROR, "Insertion error");
             }
         }
+        /// <summary>
+        /// UC3:Updating Employee Details 
+        /// </summary>
+        public Employee UpdateEmployeeData(Employee employee)
+        {
+            SqlConnection connection = new SqlConnection(connectionstring);
+            try
+            {
+                using (connection)
+                {
+                    SqlCommand cmd = new SqlCommand("UpdateEmployeeDetails", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@ID", employee.ID);
+                    cmd.Parameters.AddWithValue("@Name", employee.Name);
+                    cmd.Parameters.AddWithValue("@BasicPay", employee.BasicPay);
+                    employee = new Employee();
+                    connection.Open();
+                    SqlDataReader rd = cmd.ExecuteReader();
+                    if (rd.HasRows)
+                    {
+                        while (rd.Read())
+                        {
+                            employee.ID = (int)rd["ID"];
+                            employee.Name = (string)rd["Name"];
+                            employee.Gender = (string)rd["Gender"];
+                            employee.PhoneNumber = (Int64)rd["PhoneNumber"];
+                            employee.Address = (string)rd["Address"];
+                            employee.StartDate = (DateTime)rd["StartDate"];
+                            employee.Department = (string)rd["Department"];
+                            employee.BasicPay = (Int32)rd["BasicPay"];
+                            employee.Deduction = (Int32)rd["Deduction"];
+                            employee.TaxablePay = (Int32)rd["TaxablePay"];
+                            employee.IncomeTax = (Int32)rd["IncomeTax"];
+                            employee.NetPay = (Int32)rd["NetPay"];
+
+                        }
+                        if (employee == null)
+                        {
+                            throw new EmployeeException(EmployeeException.ExceptionType.NO_DATA_FOUND, "Data Not Found");
+                        }
+                    }
+                    connection.Close();
+                }
+            }
+            catch (Exception)
+            {
+                throw new EmployeeException(EmployeeException.ExceptionType.NO_DATA_FOUND, "Data not found");
+            }
+            return employee;
+        }
     }
 }
