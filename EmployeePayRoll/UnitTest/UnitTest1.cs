@@ -51,7 +51,7 @@ namespace UnitTest
             Assert.AreEqual(expected, actual);
         }
         /// <summary>
-        /// UC3: Retrieve Employee Data
+        /// UC3: Retrieves Employee Data
         /// </summary>
         [Test]
         public void RetrievingData_In_DateRange()
