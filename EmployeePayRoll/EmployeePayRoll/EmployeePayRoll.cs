@@ -134,5 +134,57 @@ namespace EmployeePay
             }
             return employee;
         }
+        /// <summary>
+        /// UC4:Retrieve Employee Details 
+        /// </summary>
+        public List<Employee> RetrieveData_FromDate_ToDate(DateTime fromDate, DateTime toDate)
+        {
+            Employee employee;
+            List<Employee> employeeList = new List<Employee>();
+
+            SqlConnection connection = new SqlConnection(connectionstring);
+            SqlCommand command = new SqlCommand("DateAndTime", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+            try
+            {
+                connection.Open();
+                using (connection)
+                {
+                    command.Parameters.AddWithValue("@FromDate", fromDate);
+                    command.Parameters.AddWithValue("@toDate", toDate);
+                    SqlDataReader rd = command.ExecuteReader();
+                    while (rd.Read())
+                    {
+                        employee = new Employee
+                        {
+                            ID = rd.IsDBNull(0) ? default : rd.GetInt32(0),
+                            Name = rd.IsDBNull(1) ? default : rd.GetString(1),
+                            PhoneNumber = rd.IsDBNull(2) ? default : rd.GetInt64(2),
+                            Address = rd.IsDBNull(3) ? default : rd.GetString(3),
+                            Department = rd.IsDBNull(4) ? default : rd.GetString(4),
+                            Gender = rd.IsDBNull(5) ? default : rd.GetString(5),
+                            BasicPay = rd.IsDBNull(6) ? default : rd.GetInt32(6),
+                            Deduction = rd.IsDBNull(7) ? default : rd.GetInt32(7),
+                            TaxablePay = rd.IsDBNull(8) ? default : rd.GetInt32(8),
+                            IncomeTax = rd.IsDBNull(9) ? default : rd.GetInt32(9),
+                            NetPay = rd.IsDBNull(10) ? default : rd.GetInt32(10),
+                            StartDate = rd.IsDBNull(11) ? default : rd.GetDateTime(11)
+
+                        };
+                        Console.WriteLine(employee.ID + "," + employee.Name + "," + employee.PhoneNumber + "," + employee.Address + "," + employee.Department + "," + employee.Gender + "," + employee.BasicPay + "," + employee.Deduction + "," + employee.TaxablePay + "," + employee.IncomeTax + "," + employee.NetPay + "," + employee.StartDate + ",");
+                        employeeList.Add(employee);
+                    }
+                    return employeeList;
+                }
+            }
+            catch (Exception)
+            {
+                throw new EmployeeException(EmployeeException.ExceptionType.NO_DATA_FOUND, "Data not found");
+            }
+            return employeeList;
+
+        }
     }
 }

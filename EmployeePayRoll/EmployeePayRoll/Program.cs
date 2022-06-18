@@ -16,6 +16,7 @@ namespace EmployeePay
                 Console.WriteLine("2: Close Connection");
                 Console.WriteLine("3: Add Employee Data");
                 Console.WriteLine("4: Update Employee Data");
+                Console.WriteLine("5: Retrieve Employee Data");
                 Console.WriteLine("0: Exit");
                 option = int.Parse(Console.ReadLine());
                 switch (option)
@@ -73,6 +74,11 @@ namespace EmployeePay
                         double basic = Convert.ToInt64(Console.ReadLine());
                         emp.BasicPay = basic;
                         employeepayroll.UpdateEmployeeData(emp);
+                        break;
+                    case 5:
+                        var fromDate = Convert.ToDateTime("2013-01-01");
+                        var ToDate = Convert.ToDateTime("2022-04-04");
+                        employeepayroll.RetrieveData_FromDate_ToDate(fromDate, ToDate);
                         break;
                     case 0:
                         Console.WriteLine("Exit");

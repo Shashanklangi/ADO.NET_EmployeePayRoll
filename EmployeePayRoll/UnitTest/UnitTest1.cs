@@ -50,5 +50,17 @@ namespace UnitTest
             var actual = employee.BasicPay;
             Assert.AreEqual(expected, actual);
         }
+        /// <summary>
+        /// UC3: Retrieve Employee Data
+        /// </summary>
+        [Test]
+        public void RetrievingData_In_DateRange()
+        {
+            var fromDate = Convert.ToDateTime("2013-01-01");
+            var toDate = Convert.ToDateTime("2022-10-01");
+            var result = employeePayRoll.RetrieveData_FromDate_ToDate(fromDate, toDate);
+            var expected = result.Count;
+            Assert.AreEqual(expected, result.Count);
+        }
     }
 }
