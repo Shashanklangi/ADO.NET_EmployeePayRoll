@@ -62,5 +62,16 @@ namespace UnitTest
             var expected = result.Count;
             Assert.AreEqual(expected, result.Count);
         }
+        //<summary>
+        //TC 5 : Remove Details
+        //</summary>
+        [Test]
+        public void RemovingEmployeeDetails()
+        {
+            bool expected = true;
+            employee.ID = 5;
+            bool result = employeePayRoll.RemoveDetails(employee);
+            Assert.AreEqual(expected, result);
+        }
     }
 }

@@ -17,6 +17,7 @@ namespace EmployeePay
                 Console.WriteLine("3: Add Employee Data");
                 Console.WriteLine("4: Update Employee Data");
                 Console.WriteLine("5: Retrieve Employee Data");
+                Console.WriteLine("6: Remove Employee Data");
                 Console.WriteLine("0: Exit");
                 option = int.Parse(Console.ReadLine());
                 switch (option)
@@ -79,6 +80,12 @@ namespace EmployeePay
                         var fromDate = Convert.ToDateTime("2013-01-01");
                         var ToDate = Convert.ToDateTime("2022-04-04");
                         employeepayroll.RetrieveData_FromDate_ToDate(fromDate, ToDate);
+                        break;
+                    case 6:
+                        Console.WriteLine("Enter the ID");
+                        int Ids = Convert.ToInt32(Console.ReadLine());
+                        emp.ID = Ids;
+                        employeepayroll.RemoveDetails(emp);
                         break;
                     case 0:
                         Console.WriteLine("Exit");
